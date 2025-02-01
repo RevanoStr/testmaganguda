@@ -1,13 +1,14 @@
-@extends('layout')
+@extends('dashboard')
 
 @section('konten')
 
-<div class="d-flex">
+<div class="d-flex justify-content-between">
     <h4>List Staf</h4>
     <div class="ms-auto">
-        <a class="btn btn-success" href="{{ route('staf.tambah')}}">Tambah Staf</a>
+        <a class="btn btn-primary" href="{{ route('staf.tambah')}}">Tambah Staf</a>
     </div>
 </div>
+
 
 <table class="table">
     <tr>
@@ -28,11 +29,13 @@
     <td>{{ $data->jenis_kelamin }}</td>
     <td>{{ $data->hobi }}</td>
     <td>
+       <div class="d-flex">
         <a href="{{route('staf.edit', $data->id)}}" class="btn btn-sm btn-warning">Edit</a>
         <form action="{{route('staf.delete', $data->id)}}" method="post">
             @csrf
             <button class="btn btn-sm btn-danger">Hapus</button>
         </form>
+       </div>
     </td>
 </tr>
     @endforeach

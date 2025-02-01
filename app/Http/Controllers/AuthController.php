@@ -18,7 +18,7 @@ class AuthController extends Controller
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
-        return redirect()->route('login.tampil');
+        return redirect()->route('login');
     }
 
     function tampilLogin() {
@@ -30,14 +30,16 @@ class AuthController extends Controller
 
         if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            return redirect('staf');
+            return redirect()->route('dashboard.tampil');
         } else{
             return redirect()->back()->with('gagal', 'Email atau pasword anda salah');
         }
+
+        
     }
 
     function logout() {
         Auth::logout();
-        return redirect()->route('login.tampil');
+        return redirect()->route('login');
     }
 }

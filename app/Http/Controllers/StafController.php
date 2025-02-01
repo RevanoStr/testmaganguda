@@ -16,17 +16,20 @@ class StafController extends Controller
         return view('staf.tambah');
     }
 
-    function submit(Request $request) {
-        $staf = new Staf();
-        $staf->nama = $request->nama; 
-        $staf->alamat = $request->alamat; 
-        $staf->no_hp = $request->no_hp; 
-        $staf->jenis_kelamin = $request->jenis_kelamin; 
-        $staf->hobi = $request->hobi;
-        $staf->save();
+    public function submit(Request $request) {
+        $request->validate([
+            'nama' => 'required',
+            'alamat' => 'required',
+            'no_hp' => 'required',
+            'jenis_kelamin' => 'required',
+            'hobi' => 'required',
+        ]);
         
+        Staf::create($request->all());
         return redirect()->route('staf.tampil');
+    
     }
+    
 
     function edit($id) {
         $staf = Staf::find($id);
